@@ -5,8 +5,8 @@ pipeline {
         // Specify Maven tool installation
         maven 'Default Maven'
     }
-    environment{
-        SCANNER_HOME= tool 'sonar'
+    environment {
+        SONARQUBE_ENV = 'SonarQube' // Replace with your SonarQube installation name
     }
 
     stages {
@@ -25,11 +25,15 @@ pipeline {
         }
   stage('SonarQube Analysis') {
       steps {
-    def mvn = tool 'Default Maven';
+    script {
+                    def mvn = tool 'Default Maven'
+                }
           
     withSonarQubeEnv() {
+        script {
       sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=opqdemo"
           }
+    }
   }
   }
 }
