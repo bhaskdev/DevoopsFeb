@@ -29,7 +29,7 @@ pipeline {
                     def mvn = tool 'Default Maven'
                 }
           
-    withSonarQubeEnv() {
+    withSonarQubeEnv('SonarQube') {
         script {
       sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=opqdemo"
           }
