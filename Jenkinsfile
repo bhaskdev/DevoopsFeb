@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Specify Maven tool installation
-        maven 'Maven'
+        maven 'Default Maven'
     }
     environment{
         SCANNER_HOME= tool 'sonar'
@@ -24,7 +24,7 @@ pipeline {
             }
         }
   stage('SonarQube Analysis') {
-     mvn = tool 'Maven';
+     mvn = tool 'Default Maven';
     withSonarQubeEnv() {
       sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=opqdemo"
     }
